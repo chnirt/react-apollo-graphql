@@ -1,65 +1,50 @@
-import React, { Component } from 'react'
-import { Layout, Menu, Breadcrumb, Icon } from 'antd'
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Layout, Menu, Icon } from 'antd';
+import { siderRoutes } from '../routes';
 
-const { SubMenu } = Menu
-const { Header, Content, Sider } = Layout
+const { Sider } = Layout;
 
-export class SiderLayout extends Component {
-  render() {
-    return (
-      <Sider width={200} style={{ background: '#fff' }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="user" />
-                User
-              </span>
-            }
-          >
-            <Menu.Item key="1">User List</Menu.Item>
-            <Menu.Item key="2">Active Users</Menu.Item>
-            <Menu.Item key="3">Blocked Users</Menu.Item>
-            <Menu.Item key="4">Expired Users</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="file" />
-                Post
-              </span>
-            }
-          >
-            <Menu.Item key="5">Post List</Menu.Item>
-            <Menu.Item key="6">Recent Posts</Menu.Item>
-            <Menu.Item key="7">Banned Posts</Menu.Item>
-            <Menu.Item key="8">Warming Posts</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub3"
-            title={
-              <span>
-                <Icon type="message" />
-                Comment
-              </span>
-            }
-          >
-            <Menu.Item key="9">Comment List</Menu.Item>
-            <Menu.Item key="10">Recent Comments</Menu.Item>
-            <Menu.Item key="11">Old Comments</Menu.Item>
-            <Menu.Item key="12">Banned Commnents</Menu.Item>
-          </SubMenu>
-        </Menu>
-      </Sider>
-    )
-  }
+class Siderlayout extends React.Component {
+	state = {
+		currentRoute: '/'
+	};
+
+	handleClick = e => {
+		console.log('click sider: ', e.key);
+		this.setState({
+			currentRoute: e.key
+		});
+	};
+	render() {
+		const { location } = this.props;
+		return (
+			<Sider
+				theme="light"
+				style={{
+					height: '100vh',
+					position: 'fixed',
+					left: 0
+				}}
+			>
+				<Menu
+					mode="inline"
+					defaultSelectedKeys={[location.pathname]}
+					onClick={e => this.handleClick(e)}
+				>
+					{siderRoutes &&
+						siderRoutes.map((siderRoute, i) => (
+							<Menu.Item key={siderRoute.path}>
+								<Link to={siderRoute.path}>
+									<Icon type={siderRoute.icon} />
+									{siderRoute.label.toUpperCase()}
+								</Link>
+							</Menu.Item>
+						))}
+				</Menu>
+			</Sider>
+		);
+	}
 }
 
-export default SiderLayout
+export default withRouter(Siderlayout);

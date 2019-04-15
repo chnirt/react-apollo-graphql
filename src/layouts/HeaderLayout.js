@@ -1,72 +1,57 @@
-import React, { Component } from "react";
-import Auth from "../auth/Authenticate";
-import { withRouter } from "react-router";
-// import routes from '../routes'
-// import MenuWithSubMenus from '../utils/MenuWithSubMenus'
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Layout, Menu, Icon } from 'antd';
+import { headerRoutes } from '../routes';
+import Auth from '../auth/Authenticate';
 
-import { Layout, Menu, Icon } from "antd";
-
-const { SubMenu } = Menu;
 const { Header } = Layout;
 
-class HeaderLayout extends Component {
-  state = {
-    current: "home"
-  };
+const SubMenu = Menu.SubMenu;
 
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
-  };
-  onLogout = () => {
-    localStorage.clear();
-    Auth.logout(() => {
-      this.props.history.push("/login");
-    });
-  };
-  render() {
-    return (
-      // <ul>
-      //   {routes.map((route, i) => (
-      //     <MenuWithSubMenus key={i} {...route} />
-      //   ))}
-      // </ul>
-      <Header className="header clearfix">
-        <div className="logo" />
-        <Menu
-          theme="light"
-          onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
-          mode="horizontal"
-          style={{ lineHeight: "64px", float: "right" }}
-        >
-          <Menu.Item key="home">
-            <Icon type="home" />
-            Home
-          </Menu.Item>
-          <SubMenu
-            title={
-              <span className="submenu-title-wrapper">
-                <Icon type="user" />
-                Hello, Chin
-              </span>
-            }
-          >
-            <Menu.Item key="setting:1">My Profile</Menu.Item>
-            <Menu.Item key="setting:2">Update Information</Menu.Item>
-            <Menu.Item key="setting:3">Change Password</Menu.Item>
-            <Menu.Item key="setting:4" onClick={this.onLogout}>
-              Log out
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item>Design by Chin</Menu.Item>
-          </SubMenu>
-        </Menu>
-      </Header>
-    );
-  }
-}
+const Headerlayout = props => {
+	const { location, history } = props;
+	function onLogout() {
+		Auth.logout(() => {
+			localStorage.removeItem('token');
+			history.push('/login');
+		});
+	}
+	return (
+		<Header
+			id="components-layout-demo-fixed"
+			style={{
+				background: '#ffff',
+				position: 'fixed',
+				zIndex: '1',
+				width: '100%',
+				boxShadow: '0px 0px 5px 0px rgba(50, 50, 50, 0.75)'
+			}}
+		>
+			<div className="logo" />
+			<Menu
+				mode="horizontal"
+				style={{ float: 'right', lineHeight: '62px' }}
+				defaultSelectedKeys={[location.pathname]}
+				selectable={false}
+			>
+				<SubMenu
+					key="sub1"
+					title={<Icon type="user" style={{ marginRight: '0px' }} />}
+				>
+					{headerRoutes &&
+						headerRoutes.map((headerRoute, i) => (
+							<Menu.Item key={i}>
+								<Link to={headerRoute.path}>
+									{headerRoute.label.toUpperCase()}
+								</Link>
+							</Menu.Item>
+						))}
+					<Menu.Divider />
+					<Menu.Item onClick={() => onLogout()}>LOG OUT</Menu.Item>
+				</SubMenu>
+			</Menu>
+		</Header>
+	);
+};
 
-export default withRouter(HeaderLayout);
+export default withRouter(Headerlayout);
