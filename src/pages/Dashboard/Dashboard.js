@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import Auth from '../../auth/Authenticate';
-import { BrowserRouter, Switch, withRouter } from 'react-router-dom';
-import RouteWithSubRoutes from '../../utils/RouteWithSubRoutes';
-import Main from '../../layouts/Mainlayout';
+import React, { Component } from 'react'
+import { BrowserRouter, Switch, withRouter } from 'react-router-dom'
+import RouteWithSubRoutes from '../../utils/RouteWithSubRoutes'
+import Main from '../../layouts/Mainlayout'
 
 export class Dashboard extends Component {
 	render() {
-		const { routes } = this.props;
+		const { routes } = this.props
 		return (
 			<div>
 				<BrowserRouter>
@@ -19,8 +18,8 @@ export class Dashboard extends Component {
 					</Main>
 				</BrowserRouter>
 			</div>
-		);
+		)
 	}
 }
 
-export default withRouter(Dashboard);
+export default withRouter(Dashboard)

@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
-import './App.css';
-import ScreenRoot from './pages/Root';
+import React, { Component } from 'react'
+import './App.css'
+import ScreenRoot from './pages/Root'
+import { ApolloProvider } from 'react-apollo'
+import client from './utils/apolloClient'
 class App extends Component {
 	render() {
-		return <ScreenRoot />;
+		return (
+			<ApolloProvider client={client}>
+				<ScreenRoot />
+			</ApolloProvider>
+		)
 	}
 }
 
-export default App;
+export default App

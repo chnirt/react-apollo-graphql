@@ -1,145 +1,89 @@
-import React, { Component, useState } from 'react';
-import Auth from '../auth/Authenticate';
-import { Link } from 'react-router-dom';
-import apiCaller from '../utils/apiCaller';
-import './Login.css';
-import { Row, Col, Layout, Form, Input, Icon, Checkbox, Button } from 'antd';
+import React, { Component } from 'react'
+// import Auth from '../auth/Authenticate';
+// import { withRouter } from 'react-router-dom'
+import { withApollo } from 'react-apollo'
+import gql from 'graphql-tag'
 
-const { Content } = Layout;
-
-export class Login extends Component {
-	state = {
-		email: 'chin@gmail.com',
-		password: '1',
-		isAdmin: false,
-		message: ''
-	};
-	onChange = e => {
-		e.target.name === 'isAdmin'
-			? this.setState({ [e.target.name]: e.target.checked })
-			: this.setState({
-					[e.target.name]: e.target.value
-			  });
-	};
-	onSubmit = e => {
-		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-			if (!err) {
-				console.log('Received values of form: ', values);
-				const { email, password } = values;
-				apiCaller(
-					'post',
-					'users/login',
-					{
-						email: email,
-						password: password
-					},
-					null
-				)
-					.then(res => {
-						Auth.authenticate(() => {
-							localStorage.setItem('token', res.data.token);
-							this.props.history.push('/');
-						});
-					})
-					.catch(err => {
-						const { status } = err.response;
-
-						if (status === 401) {
-							this.setState({
-								message: 'Email or Password is not correct.'
-							});
-						}
-					});
-			}
-		});
-	};
-	componentWillMount() {
-		const token = localStorage.getItem('token');
-		if (token) {
-			this.props.history.push('/');
+const USER_LOGIN = gql`
+	mutation($userInput: LoginUserInput!) {
+		login(userInput: $userInput) {
+			token
 		}
 	}
-	render() {
-		const { message } = this.state;
-		const { getFieldDecorator } = this.props.form;
-		const formItemLayout = {
-			// labelCol: {
-			//   xs: { span: 12, offset: 6 },
-			//   sm: { span: 8, offset: 6 }
-			// },
-			wrapperCol: {
-				sm: {
-					span: 22
-				},
-				md: {
-					span: 24
+`
+export class Login extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			email: 'chin@gmail.com',
+			password: 'd3f4ultP4ssword!',
+			errors: []
+		}
+	}
+	componentWillUpdate
+	onChange = e => {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
+	}
+	onLogin = e => {
+		e.preventDefault()
+
+		const { client, history } = this.props
+		const { email, password } = this.state
+
+		client
+			.mutate({
+				mutation: USER_LOGIN,
+				variables: {
+					userInput: {
+						email,
+						password
+					}
 				}
-			}
-		};
+			})
+			.then(res => {
+				localStorage.setItem('token', res.data.login.token)
+				history.push('/')
+			})
+			.catch(res => {
+				console.log(res)
+				const errors = res.graphQLErrors.map(error => error.message)
+				this.setState({
+					errors
+				})
+			})
+	}
+	render() {
+		const { email, password, errors } = this.state
 		return (
-			<Layout>
-				<Row type="flex" justify="space-around" align="middle">
-					<Col span={4} offset={18}>
-						<Form
-							{...formItemLayout}
-							onSubmit={this.onSubmit}
-							className="login-form"
-							style={{ backgroundColor: 'black' }}
-						>
-							<Form.Item>
-								{getFieldDecorator('email', {
-									rules: [
-										{ required: true, message: 'Please input your username!' }
-									]
-								})(
-									<Input
-										prefix={
-											<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
-										}
-										placeholder="email"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								{getFieldDecorator('password', {
-									rules: [
-										{ required: true, message: 'Please input your Password!' }
-									]
-								})(
-									<Input
-										prefix={
-											<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-										}
-										type="password"
-										placeholder="Password"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								{getFieldDecorator('remember', {
-									valuePropName: 'checked',
-									initialValue: false
-								})(<Checkbox>Remember me</Checkbox>)}
-								<a className="login-form-forgot" href="/">
-									Forgot password
-								</a>
-								<Button
-									type="primary"
-									htmlType="submit"
-									className="login-form-button"
-								>
-									Log in
-								</Button>
-								Or <Link to="/register">Register now!</Link>
-							</Form.Item>
-						</Form>
-						{message}
-					</Col>
-				</Row>
-			</Layout>
-		);
+			<>
+				<div
+					style={{
+						margin: 'auto',
+						width: '50%',
+						border: '3px solid green',
+						padding: '10px'
+					}}
+				>
+					Login
+					<form onSubmit={this.onLogin}>
+						<input name="email" onChange={this.onChange} value={email} />
+						<br />
+						<input
+							type="password"
+							name="password"
+							onChange={this.onChange}
+							value={password}
+						/>
+						<br />
+						<button type="submit">Login</button>
+					</form>
+					{errors && errors.map((error, i) => <h4 key={i}>{error}</h4>)}
+				</div>
+			</>
+		)
 	}
 }
 
-export default Form.create({ name: 'normal_login' })(Login);
+export default withApollo(Login)
