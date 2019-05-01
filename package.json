@@ -47,6 +47,6 @@
 		"pretty-quick": "^1.10.0"
 	},
 	"engines": {
-		"node": "12.1.0"
+		"yarn": "1.15.2"
 	}
 }
