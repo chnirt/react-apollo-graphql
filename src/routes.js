@@ -1,19 +1,20 @@
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 // Application
-import Dashboard from './pages/Dashboard/Dashboard';
+import Home from './pages/Home'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 // Member
-import ScreenMember from './pages/Dashboard/Member';
+import ScreenMember from './pages/Dashboard/Member'
 // Post
-import ScreenPost from './pages/Dashboard/Post';
+import ScreenPost from './pages/Dashboard/Post'
 // Like
-import ScreenLike from './pages/Dashboard/Like';
+import ScreenLike from './pages/Dashboard/Like'
 // USER
-import Profile from './pages/Dashboard/User/Profile';
-import UpdateInformation from './pages/Dashboard/User/Updateinformation';
-import ChangePassword from './pages/Dashboard/User/Changepassword';
+import Profile from './pages/Dashboard/User/Profile'
+import UpdateInformation from './pages/Dashboard/User/Updateinformation'
+import ChangePassword from './pages/Dashboard/User/Changepassword'
 // import {
 // 	Profile,
 // 	UpdateInformation,
@@ -32,12 +33,17 @@ export const routes = [
 		component: Register
 	},
 	{
-		label: 'Dashboard',
+		label: 'Home',
 		path: '/',
-		exact: true,
 		private: true,
-		component: Dashboard,
+		component: Home,
 		routes: [
+			{
+				label: 'dashboard',
+				path: '/',
+				exact: true,
+				component: Dashboard
+			},
 			{
 				label: 'members',
 				path: '/members',
@@ -70,7 +76,7 @@ export const routes = [
 			}
 		]
 	}
-];
+]
 
 export const siderRoutes = [
 	{
@@ -93,7 +99,7 @@ export const siderRoutes = [
 		icon: 'like',
 		path: '/likes'
 	}
-];
+]
 
 export const headerRoutes = [
 	{
@@ -108,4 +114,4 @@ export const headerRoutes = [
 		label: 'change password',
 		path: '/changepassword'
 	}
-];
+]

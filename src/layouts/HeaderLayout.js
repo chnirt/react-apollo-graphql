@@ -1,20 +1,20 @@
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
-import { headerRoutes } from '../routes';
-import Auth from '../auth/Authenticate';
+import React from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { Layout, Menu, Icon } from 'antd'
+import { headerRoutes } from '../routes'
+import Auth from '../auth/Authenticate'
 
-const { Header } = Layout;
+const { Header } = Layout
 
-const SubMenu = Menu.SubMenu;
+const SubMenu = Menu.SubMenu
 
 const Headerlayout = props => {
-	const { location, history } = props;
+	const { location, history } = props
 	function onLogout() {
 		Auth.logout(() => {
-			localStorage.removeItem('token');
-			history.push('/login');
-		});
+			localStorage.removeItem('token')
+			history.push('/login')
+		})
 	}
 	return (
 		<Header
@@ -51,7 +51,7 @@ const Headerlayout = props => {
 				</SubMenu>
 			</Menu>
 		</Header>
-	);
-};
+	)
+}
 
-export default withRouter(Headerlayout);
+export default withRouter(Headerlayout)

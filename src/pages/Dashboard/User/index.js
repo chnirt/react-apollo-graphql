@@ -1,5 +1,5 @@
-import Profile from './Profile';
-import UpdateInformation from './Updateinformation';
-import ChangePassword from './Changepassword';
+import Profile from './Profile'
+import UpdateInformation from './Updateinformation'
+import ChangePassword from './Changepassword'
 
-module.exports = { Profile, UpdateInformation, ChangePassword };
+module.exports = { Profile, UpdateInformation, ChangePassword }

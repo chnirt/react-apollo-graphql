@@ -1,12 +1,12 @@
-import React from 'react';
-import Headerlayout from './Headerlayout';
-import Siderlayout from './Siderlayout';
-import Breadcumblayout from './Breadcumblayout';
-import Footerlayout from './Footerlayout';
+import React from 'react'
+import Headerlayout from './Headerlayout'
+import Siderlayout from './Siderlayout'
+import Breadcumblayout from './Breadcumblayout'
+import Footerlayout from './Footerlayout'
 
-import { Layout } from 'antd';
+import { Layout } from 'antd'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 const Main = props => {
 	return (
@@ -54,7 +54,7 @@ const Main = props => {
 				</Layout>
 			</Content>
 		</Layout>
-	);
-};
+	)
+}
 
-export default Main;
+export default Main

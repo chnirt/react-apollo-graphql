@@ -6,7 +6,11 @@ import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context'
 
 const cache = new InMemoryCache()
-const httpLink = new HttpLink({ uri: 'http://localhost:7000/graphql' })
+// const httpLink = new HttpLink({ uri: 'http://localhost:7000/graphql' })
+const httpLink = new HttpLink({
+	uri: 'https://chnirthgraphql.herokuapp.com/graphql'
+})
+
 const errorLink = new onError(({ graphQLErrors, networkError, operation }) => {
 	if (graphQLErrors) {
 		graphQLErrors.forEach(({ message, path }) =>

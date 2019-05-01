@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import Auth from '../auth/Authenticate';
-// import { withRouter } from 'react-router-dom'
+import Auth from '../auth/Authenticate'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -20,6 +19,12 @@ export class Login extends Component {
 			errors: []
 		}
 	}
+	componentWillMount() {
+		const token = localStorage.getItem('token')
+		if (token) {
+			this.props.history.push('/')
+		}
+	}
 	componentWillUpdate
 	onChange = e => {
 		this.setState({
@@ -29,7 +34,7 @@ export class Login extends Component {
 	onLogin = e => {
 		e.preventDefault()
 
-		const { client, history } = this.props
+		const { client } = this.props
 		const { email, password } = this.state
 
 		client
@@ -43,8 +48,10 @@ export class Login extends Component {
 				}
 			})
 			.then(res => {
-				localStorage.setItem('token', res.data.login.token)
-				history.push('/')
+				Auth.authenticate(() => {
+					localStorage.setItem('token', res.data.login.token)
+					this.props.history.push('/')
+				})
 			})
 			.catch(res => {
 				console.log(res)
