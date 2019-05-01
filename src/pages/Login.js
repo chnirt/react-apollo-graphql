@@ -3,13 +3,6 @@ import Auth from '../auth/Authenticate'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const USER_LOGIN = gql`
-	mutation($userInput: LoginUserInput!) {
-		login(userInput: $userInput) {
-			token
-		}
-	}
-`
 export class Login extends Component {
 	constructor(props) {
 		super(props)
@@ -92,5 +85,13 @@ export class Login extends Component {
 		)
 	}
 }
+
+const USER_LOGIN = gql`
+	mutation($userInput: LoginUserInput!) {
+		login(userInput: $userInput) {
+			token
+		}
+	}
+`
 
 export default withApollo(Login)

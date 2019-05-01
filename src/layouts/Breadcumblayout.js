@@ -21,13 +21,14 @@ const Breadcumblayout = props => {
 
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
-		// const endpoint = routes
-		// 	.filter(route => route.path === url)[0]
-		// 	.label.toUpperCase();
+
+		const validateUrl = `${pathSnippets.slice(0, index + 1)}`
+		if (!Object.values(breadcrumbNameMap).indexOf(validateUrl) > -1) {
+			return null
+		}
 		return (
 			<Breadcrumb.Item key={url}>
 				<Link to={url}>{breadcrumbNameMap[url].toUpperCase()}</Link>
-				{/* <Link to={url}>{endpoint}</Link> */}
 			</Breadcrumb.Item>
 		)
 	})
@@ -36,6 +37,7 @@ const Breadcumblayout = props => {
 			<Link to="/">{breadcrumbNameMap['/'].toUpperCase()}</Link>
 		</Breadcrumb.Item>
 	].concat(extraBreadcrumbItems)
+
 	return (
 		<Breadcrumb style={{ margin: '16px 16px' }}>{breadcrumbItems}</Breadcrumb>
 	)
