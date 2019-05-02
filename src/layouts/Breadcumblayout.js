@@ -23,14 +23,14 @@ const Breadcumblayout = props => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
 
 		const validateUrl = `${pathSnippets.slice(0, index + 1)}`
-		if (!Object.values(breadcrumbNameMap).indexOf(validateUrl) > -1) {
-			return null
+		if (Object.values(breadcrumbNameMap).indexOf(validateUrl) > -1) {
+			return (
+				<Breadcrumb.Item key={url}>
+					<Link to={url}>{breadcrumbNameMap[url].toUpperCase()}</Link>
+				</Breadcrumb.Item>
+			)
 		}
-		return (
-			<Breadcrumb.Item key={url}>
-				<Link to={url}>{breadcrumbNameMap[url].toUpperCase()}</Link>
-			</Breadcrumb.Item>
-		)
+		return null
 	})
 	const breadcrumbItems = [
 		<Breadcrumb.Item key="/">
