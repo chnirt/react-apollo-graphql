@@ -42,7 +42,7 @@ export class Login extends Component {
 			})
 			.then(res => {
 				Auth.authenticate(() => {
-					localStorage.setItem('token', res.data.login.token)
+					localStorage.setItem('access-token', res.data.login.token)
 					this.props.history.push('/')
 				})
 			})

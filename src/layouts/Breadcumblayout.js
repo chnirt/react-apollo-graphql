@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
-// import { routes } from '../routes';
 
 const breadcrumbNameMap = {
 	'/': 'dashboard',
@@ -22,16 +21,25 @@ const Breadcumblayout = props => {
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
 
-		const validateUrl = `${pathSnippets.slice(0, index + 1)}`
-		if (Object.values(breadcrumbNameMap).indexOf(validateUrl) > -1) {
+		const endpoint = `${pathSnippets.slice(0, index + 1)}`
+		if (Object.values(breadcrumbNameMap).indexOf(endpoint) > -1) {
 			return (
 				<Breadcrumb.Item key={url}>
-					<Link to={url}>{breadcrumbNameMap[url].toUpperCase()}</Link>
+					{/* <Link to={url}>{breadcrumbNameMap[url].toUpperCase()}</Link> */}
+					{breadcrumbNameMap[url].toUpperCase()}
 				</Breadcrumb.Item>
 			)
 		}
 		return null
 	})
+	console.log(extraBreadcrumbItems)
+
+	const defaultBreadCrumb = [
+		<Breadcrumb.Item key="/">
+			{breadcrumbNameMap['/'].toUpperCase()}
+		</Breadcrumb.Item>
+	]
+
 	const breadcrumbItems = [
 		<Breadcrumb.Item key="/">
 			<Link to="/">{breadcrumbNameMap['/'].toUpperCase()}</Link>
@@ -39,7 +47,9 @@ const Breadcumblayout = props => {
 	].concat(extraBreadcrumbItems)
 
 	return (
-		<Breadcrumb style={{ margin: '16px 16px' }}>{breadcrumbItems}</Breadcrumb>
+		<Breadcrumb style={{ margin: '16px 16px' }}>
+			{extraBreadcrumbItems.length > 0 ? breadcrumbItems : defaultBreadCrumb}
+		</Breadcrumb>
 	)
 }
 

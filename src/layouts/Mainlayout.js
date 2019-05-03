@@ -27,8 +27,7 @@ const Main = props => {
 						<div
 							style={{
 								padding: 24,
-								background: '#fff',
-								textAlign: 'center'
+								background: '#fff'
 							}}
 						>
 							{props.children}

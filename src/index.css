@@ -12,6 +12,11 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* $ag-icons-path: '../node_modules/ag-grid-community/src/styles/ag-theme-balham/icons/'; */
+
+/* @import '../node_modules/ag-grid-community/src/styles/ag-grid.scss';
+@import '../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss'; */
+
 #components-layout-demo-fixed .logo {
 	width: 120px;
 	height: 31px;

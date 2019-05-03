@@ -104,14 +104,17 @@ export const siderRoutes = [
 export const headerRoutes = [
 	{
 		label: 'my profile',
+		icon: 'user',
 		path: '/profile'
 	},
 	{
 		label: 'update information',
+		icon: 'info-circle',
 		path: '/updateinformation'
 	},
 	{
 		label: 'change password',
+		icon: 'key',
 		path: '/changepassword'
 	}
 ]
