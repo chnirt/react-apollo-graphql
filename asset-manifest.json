@@ -1,16 +1,17 @@
 {
-  "main.css": "/react-apollo-graphql/static/css/main.53551866.chunk.css",
-  "main.js": "/react-apollo-graphql/static/js/main.ea92bd7b.chunk.js",
-  "main.js.map": "/react-apollo-graphql/static/js/main.ea92bd7b.chunk.js.map",
+  "main.css": "/react-apollo-graphql/static/css/main.5cde90d3.chunk.css",
+  "main.js": "/react-apollo-graphql/static/js/main.ebbdca04.chunk.js",
+  "main.js.map": "/react-apollo-graphql/static/js/main.ebbdca04.chunk.js.map",
   "runtime~main.js": "/react-apollo-graphql/static/js/runtime~main.882eb443.js",
   "runtime~main.js.map": "/react-apollo-graphql/static/js/runtime~main.882eb443.js.map",
-  "static/css/2.b678b30e.chunk.css": "/react-apollo-graphql/static/css/2.b678b30e.chunk.css",
-  "static/js/2.27bc9c7b.chunk.js": "/react-apollo-graphql/static/js/2.27bc9c7b.chunk.js",
-  "static/js/2.27bc9c7b.chunk.js.map": "/react-apollo-graphql/static/js/2.27bc9c7b.chunk.js.map",
+  "static/css/2.26a0f5a7.chunk.css": "/react-apollo-graphql/static/css/2.26a0f5a7.chunk.css",
+  "static/js/2.5b19f29f.chunk.js": "/react-apollo-graphql/static/js/2.5b19f29f.chunk.js",
+  "static/js/2.5b19f29f.chunk.js.map": "/react-apollo-graphql/static/js/2.5b19f29f.chunk.js.map",
   "index.html": "/react-apollo-graphql/index.html",
-  "precache-manifest.51650ea3d18dfd2c0003832e681c01b7.js": "/react-apollo-graphql/precache-manifest.51650ea3d18dfd2c0003832e681c01b7.js",
+  "precache-manifest.b32d11c4c45e8ce2c8c9c3c38834beb0.js": "/react-apollo-graphql/precache-manifest.b32d11c4c45e8ce2c8c9c3c38834beb0.js",
   "service-worker.js": "/react-apollo-graphql/service-worker.js",
-  "static/css/2.b678b30e.chunk.css.map": "/react-apollo-graphql/static/css/2.b678b30e.chunk.css.map",
-  "static/css/main.53551866.chunk.css.map": "/react-apollo-graphql/static/css/main.53551866.chunk.css.map",
-  "static/media/index.scss": "/react-apollo-graphql/static/media/tree-open.bea82da6.svg"
+  "static/css/2.26a0f5a7.chunk.css.map": "/react-apollo-graphql/static/css/2.26a0f5a7.chunk.css.map",
+  "static/css/main.5cde90d3.chunk.css.map": "/react-apollo-graphql/static/css/main.5cde90d3.chunk.css.map",
+  "static/media/index.scss": "/react-apollo-graphql/static/media/tree-open.bea82da6.svg",
+  "static/media/Login.scss": "/react-apollo-graphql/static/media/bg-login.2823d262.jpeg"
 }
