@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import 'antd/dist/antd.css'
 import 'ag-grid-enterprise'
 import './index.scss'
+// import './styles/index.less'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 

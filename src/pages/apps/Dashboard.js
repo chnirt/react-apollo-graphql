@@ -4,15 +4,13 @@ import gql from 'graphql-tag'
 import { AgGridReact } from 'ag-grid-react'
 export class Dashboard extends Component {
 	state = {
-		loading: true,
-		users: [],
 		columnDefs: [
 			{
-				headerName: 'Make',
-				field: 'make',
+				headerName: 'Id',
+				field: '_id',
 				filter: 'agTextColumnFilter',
-				suppressMenu: true,
-				enablePivot: true,
+				// suppressMenu: true,
+				// enablePivot: true,
 				// rowGroup: true
 				// suppressSizeToFit: true,
 				checkboxSelection: function(params) {
@@ -23,14 +21,14 @@ export class Dashboard extends Component {
 				}
 			},
 			{
-				headerName: 'Model',
-				field: 'model',
+				headerName: 'Email',
+				field: 'email',
 				filter: 'agTextColumnFilter'
 			},
 			{
-				headerName: 'Price',
-				field: 'price',
-				filter: 'agNumberColumnFilter'
+				headerName: 'Username',
+				field: 'username',
+				filter: 'agTextColumnFilter'
 			}
 		],
 		defaultColDef: {
@@ -38,7 +36,10 @@ export class Dashboard extends Component {
 			filter: true,
 			resizable: true
 		},
+		rowSelection: 'multiple',
 		rowData: null,
+		overlayNoRowsTemplate:
+			'<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">This is a custom \'no rows\' overlay</span>',
 		rowGroupPanelShow: 'always',
 		autoGroupColumnDef: {
 			headerName: 'Model',
@@ -60,27 +61,19 @@ export class Dashboard extends Component {
 			]
 		}
 	}
-	componentDidMount() {
-		const { client } = this.props
-
-		client
-			.query({ query: USERS })
-			.then(res => {
-				console.log(res.data.users)
-				this.setState({
-					users: res.data.users,
-					loading: false
-				})
-			})
-			.catch(err => console.log(err))
-	}
 	onGridReady = params => {
 		this.gridApi = params.api
 		this.gridColumnApi = params.columnApi
-
-		fetch('https://api.myjson.com/bins/ly7d1')
-			.then(result => result.json())
-			.then(rowData => this.setState({ rowData }))
+		const { client } = this.props
+		client
+			.query({ query: USERS })
+			.then(res => {
+				this.setState({
+					rowData: res.data.users
+				})
+			})
+			.catch(err => console.log(err))
+		// this.setState({ rowData: [] })
 	}
 
 	onFirstDataRendered(params) {
@@ -88,10 +81,6 @@ export class Dashboard extends Component {
 	}
 
 	render() {
-		const { users, loading } = this.state
-		if (loading) {
-			return <h4>Loading</h4>
-		}
 		return (
 			<>
 				Dashboard
@@ -108,24 +97,18 @@ export class Dashboard extends Component {
 						animateRows={true}
 						rowData={this.state.rowData}
 						floatingFilter={true}
-						rowSelection="multiple"
-						groupSelectsChildren={true}
-						autoGroupColumnDef={this.state.autoGroupColumnDef}
+						rowSelection={this.state.rowSelection}
+						// groupSelectsChildren={true}
+						// autoGroupColumnDef={this.state.autoGroupColumnDef}
+						overlayNoRowsTemplate={this.state.overlayNoRowsTemplate}
 						onGridReady={this.onGridReady}
 						onFirstDataRendered={this.onFirstDataRendered.bind(this)}
 						enableRangeSelection={true}
 						statusBar={this.state.statusBar}
 						pagination={true}
-						debug={true}
+						// debug={true}
 					/>
 				</div>
-				{users &&
-					users.map((user, i) => (
-						<ul key={i}>
-							<li>{user._id} </li>
-							<li>{user.username}</li>
-						</ul>
-					))}
 			</>
 		)
 	}
@@ -136,9 +119,10 @@ const USERS = gql`
 		users {
 			_id
 			username
+			email
+			firstLetterOfEmail
 			chats {
 				_id
-
 				users {
 					_id
 				}

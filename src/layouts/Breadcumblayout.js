@@ -32,7 +32,6 @@ const Breadcumblayout = props => {
 		}
 		return null
 	})
-	console.log(extraBreadcrumbItems)
 
 	const defaultBreadCrumb = [
 		<Breadcrumb.Item key="/">

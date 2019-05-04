@@ -20,11 +20,9 @@ class Headerlayout extends Component {
 
 	componentDidMount() {
 		const { client } = this.props
-		console.log(client)
 		client
 			.query({ query: ME })
 			.then(res => {
-				console.log(res.data.me)
 				this.setState({
 					me: res.data.me
 				})

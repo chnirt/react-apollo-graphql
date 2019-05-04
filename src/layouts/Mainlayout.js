@@ -31,49 +31,11 @@ const Main = props => {
 						<div
 							style={{
 								padding: 24,
-								background: '#fff'
+								background: '#fff',
+								minHeight: '81vh'
 							}}
 						>
 							{props.children}
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							Really
-							<br />
-							...
-							<br />
-							content
 							<BackTop />
 						</div>
 					</Content>
