@@ -9,7 +9,7 @@ const breadcrumbNameMap = {
 	'/members': 'members',
 	'/posts': 'posts',
 	'/likes': 'likes',
-	'/profile': 'profiles',
+	'/profile': 'profile',
 	'/updateinformation': 'updateinformation',
 	'/changepassword': 'changepassword'
 }
@@ -47,7 +47,7 @@ const Breadcumblayout = props => {
 	].concat(extraBreadcrumbItems)
 
 	return (
-		<Breadcrumb style={{ margin: '16px 16px' }}>
+		<Breadcrumb separator=">" style={{ margin: '16px 16px' }}>
 			{extraBreadcrumbItems.length > 0 ? breadcrumbItems : defaultBreadCrumb}
 		</Breadcrumb>
 	)

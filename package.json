@@ -2,6 +2,7 @@
 	"name": "cra-config1",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "https://chinnghiemtuc.github.io/react-apollo-graphql",
 	"engines": {
 		"node": "12.1.0",
 		"npm": "6.9.0"
@@ -18,18 +19,20 @@
 		"apollo-link-context": "^1.0.17",
 		"apollo-link-error": "^1.1.10",
 		"apollo-link-http": "^1.5.14",
-		"axios": "^0.18.0",
 		"babel-plugin-import": "^1.11.0",
 		"customize-cra": "^0.2.12",
+		"gh-pages": "^2.0.1",
 		"graphql": "^14.2.1",
 		"graphql-tag": "^2.10.1",
 		"husky": "^1.3.1",
 		"less": "^3.9.0",
 		"less-loader": "^5.0.0",
 		"lint-staged": "^8.1.5",
+		"node-sass": "^4.12.0",
 		"prettier": "^1.16.4",
 		"react": "^16.8.6",
 		"react-apollo": "^2.5.5",
+		"react-app-rewire-antd-theme": "^1.1.4",
 		"react-app-rewired": "^2.1.3",
 		"react-dom": "^16.8.6",
 		"react-router-dom": "^5.0.0",
@@ -40,7 +43,9 @@
 		"build": "react-app-rewired build",
 		"test": "react-app-rewired test",
 		"eject": "react-scripts eject",
-		"precommit": "pretty-quick --staged"
+		"precommit": "pretty-quick --staged",
+		"predeploy": "yarn run build",
+		"deploy": "gh-pages -d build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

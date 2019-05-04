@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import './App.scss'
 import ScreenRoot from './pages/Root'
 import { ApolloProvider } from 'react-apollo'
 import client from './utils/apolloClient'

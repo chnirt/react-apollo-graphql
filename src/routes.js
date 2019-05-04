@@ -3,18 +3,18 @@ import Register from './pages/Register'
 
 // Application
 import Home from './pages/Home'
-import Dashboard from './pages/Dashboard/Dashboard'
+import Dashboard from './pages/apps/Dashboard'
 
 // Member
-import ScreenMember from './pages/Dashboard/Member'
+import ScreenMember from './pages/apps/Member'
 // Post
-import ScreenPost from './pages/Dashboard/Post'
+import ScreenPost from './pages/apps/Post'
 // Like
-import ScreenLike from './pages/Dashboard/Like'
+import ScreenLike from './pages/apps/Like'
 // USER
-import Profile from './pages/Dashboard/User/Profile'
-import UpdateInformation from './pages/Dashboard/User/Updateinformation'
-import ChangePassword from './pages/Dashboard/User/Changepassword'
+import Profile from './pages/apps/User/Profile'
+import UpdateInformation from './pages/apps/User/Updateinformation'
+import ChangePassword from './pages/apps/User/Changepassword'
 // import {
 // 	Profile,
 // 	UpdateInformation,

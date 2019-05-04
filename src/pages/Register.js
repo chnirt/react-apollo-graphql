@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import apiCaller from '../utils/apiCaller'
+// import apiCaller from '../utils/apiCaller'
 import { Layout, Form, Input, Icon, Button } from 'antd'
 
 const { Content } = Layout
@@ -21,26 +21,26 @@ export class Register extends Component {
 			if (!err) {
 				console.log('Received values of form: ', values)
 				const { email, password } = values
-				apiCaller(
-					'post',
-					'users',
-					{
-						email: email,
-						password: password
-					},
-					null
-				)
-					.then(res => {
-						this.setState({
-							message: 'Registration was successful.'
-						})
-					})
-					.catch(err => {
-						const { status } = err.response
-						if (status === 409) {
-							this.setState({ message: 'Email is existed.' })
-						}
-					})
+				// apiCaller(
+				// 	'post',
+				// 	'users',
+				// 	{
+				// 		email: email,
+				// 		password: password
+				// 	},
+				// 	null
+				// )
+				// 	.then(res => {
+				// 		this.setState({
+				// 			message: 'Registration was successful.'
+				// 		})
+				// 	})
+				// 	.catch(err => {
+				// 		const { status } = err.response
+				// 		if (status === 409) {
+				// 			this.setState({ message: 'Email is existed.' })
+				// 		}
+				// 	})
 			}
 		})
 	}

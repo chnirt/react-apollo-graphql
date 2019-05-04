@@ -4,26 +4,30 @@ import Siderlayout from './Siderlayout'
 import Breadcumblayout from './Breadcumblayout'
 import Footerlayout from './Footerlayout'
 
-import { Layout } from 'antd'
+import { Layout, BackTop } from 'antd'
 
 const { Content } = Layout
 
 const Main = props => {
 	return (
-		<Layout style={{ height: '100vh' }}>
+		<Layout>
 			{/* Header */}
 			<Headerlayout />
 			{/* Body */}
-			<Content style={{ marginTop: 64 }}>
+			<Layout style={{ marginTop: 64 }}>
 				{/* Sider */}
 				<Siderlayout />
 				{/* Content */}
 				<Layout style={{ marginLeft: 200 }}>
 					{/* Breadcumb */}
 					<Breadcumblayout />
-
 					{/* Component */}
-					<Content style={{ margin: '0px 16px 0 16px' }}>
+					<Content
+						style={{
+							margin: '0px 16px 0 16px',
+							overflow: 'auto'
+						}}
+					>
 						<div
 							style={{
 								padding: 24,
@@ -45,13 +49,38 @@ const Main = props => {
 							<br />
 							...
 							<br />
+							Really
+							<br />
+							...
+							<br />
+							Really
+							<br />
+							...
+							<br />
+							Really
+							<br />
+							...
+							<br />
+							Really
+							<br />
+							...
+							<br />
+							Really
+							<br />
+							...
+							<br />
+							Really
+							<br />
+							...
+							<br />
 							content
+							<BackTop />
 						</div>
 					</Content>
 					{/* Footer */}
 					<Footerlayout />
 				</Layout>
-			</Content>
+			</Layout>
 		</Layout>
 	)
 }

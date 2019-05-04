@@ -1,27 +1,28 @@
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
-import { siderRoutes } from '../routes';
+import React from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { Layout, Menu, Icon } from 'antd'
+import { siderRoutes } from '../routes'
 
-const { Sider } = Layout;
+const { Sider } = Layout
 
 class Siderlayout extends React.Component {
 	state = {
 		currentRoute: '/'
-	};
+	}
 
 	handleClick = e => {
-		console.log('click sider: ', e.key);
+		console.log('click sider: ', e.key)
 		this.setState({
 			currentRoute: e.key
-		});
-	};
+		})
+	}
 	render() {
-		const { location } = this.props;
+		const { location } = this.props
 		return (
 			<Sider
 				theme="light"
 				style={{
+					overflow: 'auto',
 					height: '100vh',
 					position: 'fixed',
 					left: 0
@@ -43,8 +44,8 @@ class Siderlayout extends React.Component {
 						))}
 				</Menu>
 			</Sider>
-		);
+		)
 	}
 }
 
-export default withRouter(Siderlayout);
+export default withRouter(Siderlayout)
