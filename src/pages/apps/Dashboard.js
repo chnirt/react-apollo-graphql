@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import { AgGridReact } from 'ag-grid-react'
+import CustomLoadingOverlay from '../../utils/customLoadingOverlay'
+import CustomNoRowsOverlay from '../../utils/customNoRowsOverlay'
 export class Dashboard extends Component {
 	state = {
 		columnDefs: [
@@ -38,8 +40,18 @@ export class Dashboard extends Component {
 		},
 		rowSelection: 'multiple',
 		rowData: null,
-		overlayNoRowsTemplate:
-			'<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">This is a custom \'no rows\' overlay</span>',
+		frameworkComponents: {
+			customLoadingOverlay: CustomLoadingOverlay,
+			customNoRowsOverlay: CustomNoRowsOverlay
+		},
+		loadingOverlayComponent: 'customLoadingOverlay',
+		// loadingOverlayComponentParams: { loadingMessage: 'One moment please...' },
+		noRowsOverlayComponent: 'customNoRowsOverlay',
+		// noRowsOverlayComponentParams: {
+		// 	noRowsMessageFunc: function() {
+		// 		return 'Sorry - no rows! at: ' + new Date()
+		// 	}
+		// },
 		rowGroupPanelShow: 'always',
 		autoGroupColumnDef: {
 			headerName: 'Model',
@@ -65,6 +77,7 @@ export class Dashboard extends Component {
 		this.gridApi = params.api
 		this.gridColumnApi = params.columnApi
 		const { client } = this.props
+		this.setState({ rowData: [] })
 		client
 			.query({ query: USERS })
 			.then(res => {
@@ -73,7 +86,6 @@ export class Dashboard extends Component {
 				})
 			})
 			.catch(err => console.log(err))
-		// this.setState({ rowData: [] })
 	}
 
 	onFirstDataRendered(params) {
@@ -100,7 +112,15 @@ export class Dashboard extends Component {
 						rowSelection={this.state.rowSelection}
 						// groupSelectsChildren={true}
 						// autoGroupColumnDef={this.state.autoGroupColumnDef}
-						overlayNoRowsTemplate={this.state.overlayNoRowsTemplate}
+						frameworkComponents={this.state.frameworkComponents}
+						loadingOverlayComponent={this.state.loadingOverlayComponent}
+						// loadingOverlayComponentParams={
+						// 	this.state.loadingOverlayComponentParams
+						// }
+						noRowsOverlayComponent={this.state.noRowsOverlayComponent}
+						// noRowsOverlayComponentParams={
+						// 	this.state.noRowsOverlayComponentParams
+						// }
 						onGridReady={this.onGridReady}
 						onFirstDataRendered={this.onFirstDataRendered.bind(this)}
 						enableRangeSelection={true}

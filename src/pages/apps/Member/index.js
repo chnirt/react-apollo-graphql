@@ -18,6 +18,11 @@ export default class index extends Component {
 			console.log('Theme updated successfully')
 		})
 	}
+	onClick = () => {
+		window.less.modifyVars({
+			'@primary-color': '#0035ff'
+		})
+	}
 	render() {
 		return (
 			<div>
@@ -27,7 +32,7 @@ export default class index extends Component {
 						Primary Color: <Input onChange={this.onChange} />
 					</Col>
 					<Col xs={24}>
-						<Button type="primary" onClick={this.updateVars}>
+						<Button type="primary" onClick={this.onClick}>
 							Update Vars
 						</Button>
 					</Col>

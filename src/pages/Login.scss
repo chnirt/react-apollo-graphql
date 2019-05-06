@@ -1,18 +1,19 @@
 $bg-img: url('../assets/images/bg-login.jpeg');
 
 #components-form-demo-normal-login {
+	text-align: center;
 	.login-form {
 		height: 100vh;
 		background-color: white;
 		padding: 56px 40px;
 		.login-form-header {
-			text-align: center;
-			h2 {
+			h1 {
 				color: #9254de;
+				font-family: 'Dancing Script', cursive;
 			}
-		}
-		.login-form-forgot {
-			float: right;
+			h4 {
+				color: #8c8c8c;
+			}
 		}
 		.login-form-button {
 			width: 100%;

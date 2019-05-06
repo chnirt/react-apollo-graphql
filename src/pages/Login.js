@@ -2,17 +2,7 @@ import React, { Component } from 'react'
 import Auth from '../auth/Authenticate'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
-import {
-	Row,
-	Col,
-	Form,
-	Typography,
-	Icon,
-	Input,
-	Button,
-	Checkbox,
-	Divider
-} from 'antd'
+import { Row, Col, Form, Typography, Icon, Input, Button, Divider } from 'antd'
 import './Login.scss'
 import { Link } from 'react-router-dom'
 
@@ -24,19 +14,19 @@ export class Login extends Component {
 		this.state = {
 			email: 'chin@gmail.com',
 			password: 'd3f4ultP4ssword!',
-			spin: false,
+			loading: false,
 			errors: []
 		}
 	}
 	componentWillMount() {
-		const token = localStorage.getItem('token')
+		const token = localStorage.getItem('access-token')
 		if (token) {
 			this.props.history.push('/')
 		}
 	}
 	handleSubmit = e => {
 		e.preventDefault()
-		this.setState({ spin: true })
+		this.setState({ loading: true, spin: true })
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log('Received values of form: ', values)
@@ -57,13 +47,14 @@ export class Login extends Component {
 					Auth.authenticate(() => {
 						localStorage.setItem('access-token', res.data.login.token)
 						this.props.history.push('/')
-						this.setState({ spin: false })
+						this.setState({ loading: false, spin: false })
 					})
 				})
 				.catch(res => {
 					console.log(res)
 					const errors = res.graphQLErrors.map(error => error.message)
 					this.setState({
+						loading: false,
 						spin: false,
 						errors
 					})
@@ -72,7 +63,7 @@ export class Login extends Component {
 	}
 	render() {
 		const { getFieldDecorator } = this.props.form
-		const { email, password, errors, spin } = this.state
+		const { email, password, errors, loading } = this.state
 		return (
 			<>
 				<Row id="layout-login">
@@ -86,9 +77,9 @@ export class Login extends Component {
 						<div id="components-form-demo-normal-login">
 							<Form onSubmit={this.handleSubmit} className="login-form">
 								<div className="login-form-header">
-									<Title level={2}>Chnirt</Title>
+									<Title level={1}>Chnirt</Title>
 								</div>
-								<Form.Item value="sadasdsadas">
+								<Form.Item>
 									{getFieldDecorator('email', {
 										valuePropName: 'defaultValue',
 										initialValue: email,
@@ -132,25 +123,23 @@ export class Login extends Component {
 									)}
 								</Form.Item>
 								<Form.Item>
-									{getFieldDecorator('remember', {
-										valuePropName: 'checked',
-										initialValue: true
-									})(<Checkbox>Remember me</Checkbox>)}
-									<Link to="/forgot" className="login-form-forgot">
-										Forgot password
-									</Link>
 									<Button
 										type="primary"
 										htmlType="submit"
 										className="login-form-button"
+										loading={loading}
 									>
-										{spin ? <Icon type="loading" spin /> : <Icon type="login" />}
+										{!loading ? <Icon type="login" /> : null}
 										Log in
 									</Button>
-									<Text>{errors && errors.map(error => error)}</Text>
-									<Divider>OR</Divider>
-									<Link to="/register">register now!</Link>
 								</Form.Item>
+								<Divider>OR</Divider>
+								<Text>{errors && errors.map(error => error)}</Text>
+								<br />
+								<Link to="/forgot">Forgot password?</Link>
+								<br />
+								<span>Don't have an account?</span>
+								<Link to="/register"> Register.</Link>
 							</Form>
 						</div>
 					</Col>
