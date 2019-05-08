@@ -47,7 +47,7 @@
 		"precommit": "pretty-quick --staged",
 		"predeploy": "yarn run build",
 		"deploy": "gh-pages -d build",
-		"heroku-postbuild": "yarn build"
+		"heroku-postbuild": "yarn run build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
