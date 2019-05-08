@@ -7,7 +7,7 @@ import './Login.scss'
 import Auth from '../auth/Authenticate'
 import openNotificationWithIcon from '../utils/openNotificationWithIcon'
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 export class Login extends Component {
 	constructor(props) {
@@ -65,7 +65,7 @@ export class Login extends Component {
 	}
 	render() {
 		const { getFieldDecorator } = this.props.form
-		const { email, password, errors, loading } = this.state
+		const { email, password, loading } = this.state
 		return (
 			<>
 				<Row id="layout-login">

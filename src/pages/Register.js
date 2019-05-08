@@ -5,7 +5,7 @@ import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import openNotificationWithIcon from '../utils/openNotificationWithIcon'
 
-const { Title, Text } = Typography
+const { Title } = Typography
 export class Register extends Component {
 	state = {
 		email: 'chin@gmail.com',
@@ -77,7 +77,7 @@ export class Register extends Component {
 		})
 	}
 	render() {
-		const { email, password, username, errors, loading } = this.state
+		const { email, password, username, loading } = this.state
 		const { getFieldDecorator } = this.props.form
 		return (
 			<>
