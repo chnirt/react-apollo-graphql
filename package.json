@@ -46,7 +46,8 @@
 		"eject": "react-scripts eject",
 		"precommit": "pretty-quick --staged",
 		"predeploy": "yarn run build",
-		"deploy": "gh-pages -d build"
+		"deploy": "gh-pages -d build",
+		"heroku-postbuild": "yarn build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
