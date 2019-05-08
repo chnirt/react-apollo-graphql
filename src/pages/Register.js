@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
+import { Form, Input, Icon, Button, Row, Col, Typography, Divider } from 'antd'
 import { Link } from 'react-router-dom'
-import {
-	Form,
-	Input,
-	Icon,
-	Button,
-	Row,
-	Col,
-	Typography,
-	Checkbox,
-	Divider
-} from 'antd'
+import { withApollo } from 'react-apollo'
+import gql from 'graphql-tag'
+import openNotificationWithIcon from '../utils/openNotificationWithIcon'
 
 const { Title, Text } = Typography
 export class Register extends Component {
 	state = {
 		email: 'chin@gmail.com',
-		password: '1',
+		password: 'd3f4ultP4ssword!',
+		username: 'trinhchin',
 		loading: false,
 		errors: []
 	}
@@ -26,22 +20,64 @@ export class Register extends Component {
 			this.props.history.push('/')
 		}
 	}
-	onChange = e => {
-		this.setState({
-			[e.target.name]: e.target.value
-		})
-	}
-	onSubmit = e => {
+	handleSubmit = e => {
 		e.preventDefault()
+		this.setState({ loading: true, spin: true })
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				console.log('Received values of form: ', values)
-				const { email, password } = values
+				// console.log('Received values of form: ', values)
 			}
+			const { client } = this.props
+			const { email, password, username } = values
+			client
+				.mutate({
+					mutation: USER_REGISTER,
+					variables: {
+						userInput: {
+							email,
+							password,
+							username
+						}
+					}
+				})
+				.then(res => {
+					// console.log(res.data.register)
+					if (res.data.register) {
+						openNotificationWithIcon(
+							'success',
+							'register',
+							'Registration Successful.',
+							'We welcome a new MEMBER.',
+							'bottomRight'
+						)
+						this.setState({
+							email: '',
+							password: '',
+							username: '',
+							loading: false,
+							spin: false
+						})
+					}
+				})
+				.catch(res => {
+					// console.log(res)
+					const errors = res.graphQLErrors.map(error => error.message)
+					openNotificationWithIcon(
+						'error',
+						'register',
+						'Registration Failed.',
+						errors[0]
+					)
+					this.setState({
+						loading: false,
+						spin: false,
+						errors
+					})
+				})
 		})
 	}
 	render() {
-		const { email, password, errors, loading } = this.state
+		const { email, password, username, errors, loading } = this.state
 		const { getFieldDecorator } = this.props.form
 		return (
 			<>
@@ -62,6 +98,25 @@ export class Register extends Component {
 									</Title>
 								</div>
 								<Form.Item>
+									{getFieldDecorator('username', {
+										valuePropName: 'defaultValue',
+										initialValue: username,
+										rules: [
+											{
+												required: true,
+												message: 'Please input your username!'
+											}
+										]
+									})(
+										<Input
+											prefix={
+												<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+											}
+											placeholder="Username"
+										/>
+									)}
+								</Form.Item>
+								<Form.Item>
 									{getFieldDecorator('email', {
 										valuePropName: 'defaultValue',
 										initialValue: email,
@@ -78,7 +133,7 @@ export class Register extends Component {
 									})(
 										<Input
 											prefix={
-												<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+												<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
 											}
 											placeholder="Your@email.com"
 										/>
@@ -110,13 +165,14 @@ export class Register extends Component {
 										htmlType="submit"
 										className="login-form-button"
 										loading={loading}
+										disabled={loading}
 									>
 										{!loading ? <Icon type="user-add" /> : null}
 										Register
 									</Button>
-									<Text>{errors && errors.map(error => error)}</Text>
 									<Divider>OR</Divider>
-									Already have an account?<Link to="/login"> Login.</Link>
+									Already have an account?
+									<Link to="/login"> Login.</Link>
 								</Form.Item>
 							</Form>
 						</div>
@@ -126,5 +182,10 @@ export class Register extends Component {
 		)
 	}
 }
+const USER_REGISTER = gql`
+	mutation($userInput: UserInput!) {
+		register(userInput: $userInput)
+	}
+`
 
-export default Form.create({ name: 'register' })(Register)
+export default withApollo(Form.create({ name: 'register' })(Register))

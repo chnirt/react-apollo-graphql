@@ -23,6 +23,7 @@ class Headerlayout extends Component {
 		client
 			.query({ query: ME })
 			.then(res => {
+				console.log(res.data.me)
 				this.setState({
 					me: res.data.me
 				})

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import Auth from '../auth/Authenticate'
+import { Row, Col, Form, Typography, Icon, Input, Button, Divider } from 'antd'
+import { Link } from 'react-router-dom'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Row, Col, Form, Typography, Icon, Input, Button, Divider } from 'antd'
 import './Login.scss'
-import { Link } from 'react-router-dom'
+import Auth from '../auth/Authenticate'
+import openNotificationWithIcon from '../utils/openNotificationWithIcon'
 
 const { Title, Text } = Typography
 
@@ -51,8 +52,9 @@ export class Login extends Component {
 					})
 				})
 				.catch(res => {
-					console.log(res)
+					// console.log(res)
 					const errors = res.graphQLErrors.map(error => error.message)
+					openNotificationWithIcon('error', 'login', 'Login Failed.', errors[0])
 					this.setState({
 						loading: false,
 						spin: false,
@@ -96,7 +98,7 @@ export class Login extends Component {
 									})(
 										<Input
 											prefix={
-												<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+												<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
 											}
 											placeholder="Your@email.com"
 										/>
@@ -128,13 +130,13 @@ export class Login extends Component {
 										htmlType="submit"
 										className="login-form-button"
 										loading={loading}
+										disabled={loading}
 									>
 										{!loading ? <Icon type="login" /> : null}
 										Log in
 									</Button>
 								</Form.Item>
 								<Divider>OR</Divider>
-								<Text>{errors && errors.map(error => error)}</Text>
 								<br />
 								<Link to="/forgot">Forgot password?</Link>
 								<br />
