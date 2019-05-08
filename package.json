@@ -3,10 +3,6 @@
 	"version": "0.1.0",
 	"private": true,
 	"homepage": "https://chinnghiemtuc.github.io/react-apollo-graphql",
-	"engines": {
-		"node": "12.1.0",
-		"npm": "6.9.0"
-	},
 	"dependencies": {
 		"ag-grid-community": "^20.2.0",
 		"ag-grid-enterprise": "^20.2.0",
@@ -45,7 +41,7 @@
 		"test": "react-app-rewired test",
 		"eject": "react-scripts eject",
 		"precommit": "pretty-quick --staged",
-		"predeploy": "yarn run build",
+		"predeploy": "yarn build",
 		"deploy": "gh-pages -d build",
 		"heroku-postbuild": "yarn build"
 	},
